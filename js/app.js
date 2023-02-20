@@ -50,5 +50,7 @@ formulario.addEventListener('submit', (e) => {
     fetch('formulario.php', {
         method: 'POST',
         body: data
-    }).then(res => res.json()).then(dados => console.log(dados)).catch(e => console.log(e));
+    }).then((res) => res.json())
+        .then((dados) => console.log(dados))
+        .catch((e) => console.log(e));
 })
