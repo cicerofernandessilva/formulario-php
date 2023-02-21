@@ -51,7 +51,7 @@ if($_POST){
     // Direccion
     $destinatario = 'cicerofernandessilva@gmail.com'; //reemplazar por su email
     $asunto = 'Mensaje de mi sitio web';
-    $headers  = 'MIME-Version: 1.0' . "\r\n" .'Content-type: text/html; charset=utf-8' . "\r\n" .'From: ' . $correo . "\r\n";
+    $headers  = 'MIME-Version: 1.0' . "\r\n" .'Content-type: text/html; charset=utf-8' . "\r\n" .'From: ' . $email . "\r\n";
 
     if(mail($destinatario, $asunto, $cuerpo, $headers)){
         echo json_encode(array(
