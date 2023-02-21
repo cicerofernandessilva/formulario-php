@@ -24,8 +24,17 @@ formulario.addEventListener('submit', (e) => {
         campo.classList.remove('is-valid');
     }
 
+    const limpiarFormulario = () => {
+        console.log('Mensaje enviada con éxito!');
+        formulario.reset();
+        usuario.classList.remove('is-valid');
+        email.classList.remove('is-valid');
+        mensaje.classList.remove('is-valid');
+
+    }
+
     if (!data.get('usuario').trim()) {
-        console.log('no hay usuario!')
+         console.log('no hay usuario!')
         campoInvalido(usuario)
         return
     } else {
@@ -50,7 +59,36 @@ formulario.addEventListener('submit', (e) => {
     fetch('formulario.php', {
         method: 'POST',
         body: data
-    }).then((res) => res.json())
-        .then((dados) => console.log(dados))
+    })
+        .then((res) => res.json())
+        .then((datos) => {
+            console.log(datos);
+
+            if (datos.erro && datos.campo === "usuario") {
+                console.log("erro con usuario PHP");
+                campoInvalido(usuario);
+                return;
+            } else {
+                campoValido(usuario);
+            }
+            if (datos.erro && datos.campo === "email") {
+                console.log("erro con email PHP");
+                campoInvalido(email);
+                return;
+            } else {
+                campoValido(email);
+            }
+            if (datos.erro && datos.campo === "mensaje") {
+                console.log("erro con mensaje PHP");
+                campoInvalido(mensaje);
+                return;
+            } else {
+                campoValido(mensaje);
+            }
+            if (!datos.erro) {
+                limpiarFormulario();
+                campoValido(boton);
+            }
+        })
         .catch((e) => console.log(e));
 })
