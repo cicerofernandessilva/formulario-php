@@ -1,18 +1,14 @@
-
 // console.log('Funciona!')
-
 const formulario = document.getElementById('formulario');
 const usuario = document.getElementById('texto-1');
 const email = document.getElementById('texto-2');
 const mensaje = document.getElementById('texto-3');
 const boton = document.getElementById('boton');
 
-
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
     e.stopPropagation();
     // console.log('Formulário funcionando') /* teste formulário*/
-
     const data = new FormData(formulario);
     // console.log(data.get('mensaje')); // teste de consta data
     const campoValido = (campo) => {
@@ -34,23 +30,23 @@ formulario.addEventListener('submit', (e) => {
     }
 
     if (!data.get('usuario').trim()) {
-         console.log('no hay usuario!')
-        campoInvalido(usuario)
-        return
+        console.log('no hay usuario!');
+        campoInvalido(usuario);
+        return;
     } else {
         campoValido(usuario);
     }
     if (!data.get('email').trim()) {
-        console.log('no hay email!')
-        campoInvalido(email)
-        return
+        console.log('no hay email!');
+        campoInvalido(email);
+        return;
     } else {
         campoValido(email);
     }
     if (!data.get('mensaje').trim()) {
-        console.log('no hay mensaje!')
-        campoInvalido(mensaje)
-        return
+        console.log('no hay mensaje!');
+        campoInvalido(mensaje);
+        return;
     } else {
         campoValido(mensaje);
     }
@@ -63,29 +59,28 @@ formulario.addEventListener('submit', (e) => {
         .then((res) => res.json())
         .then((datos) => {
             console.log(datos);
-
-            if (datos.erro && datos.campo === "usuario") {
+            if (datos.error && datos.campo === "usuario") {
                 console.log("erro con usuario PHP");
                 campoInvalido(usuario);
                 return;
-            } else {
-                campoValido(usuario);
             }
-            if (datos.erro && datos.campo === "email") {
+            campoValido(usuario);
+
+            if (datos.error && datos.campo === "email") {
                 console.log("erro con email PHP");
                 campoInvalido(email);
                 return;
-            } else {
-                campoValido(email);
             }
-            if (datos.erro && datos.campo === "mensaje") {
+            campoValido(email);
+
+            if (datos.error && datos.campo === "mensaje") {
                 console.log("erro con mensaje PHP");
                 campoInvalido(mensaje);
                 return;
-            } else {
-                campoValido(mensaje);
             }
-            if (!datos.erro) {
+            campoValido(mensaje);
+
+            if (!datos.error) {
                 limpiarFormulario();
                 campoValido(boton);
             }
